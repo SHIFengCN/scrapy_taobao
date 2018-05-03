@@ -16,7 +16,7 @@ import re
 import requests
 import time
 import xlwt
-
+import urllib
 
 def append_data(data,data_list):
 	for item in data_list:
@@ -28,8 +28,10 @@ def append_data(data,data_list):
 		}
 		# print(item)
 		data.append(detail)
-
-url='https://s.taobao.com/search?q=sony+%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%BB%B4%E4%BF%AE&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_20180502&ie=utf8'
+url_search=input('请输入搜索词：')
+url_search=urllib.parse.quote(url_search,encoding='utf8')
+#print(url_search)
+url='https://s.taobao.com/search?q={}&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_20180502&ie=utf8'.format(url_search,)
 response=requests.get(url)
 html=response.text
 content=re.findall(r'g_page_config = (.*)g_srp_loadCss',html,re.S)#re.S:识别字符串内没有显示的符号，如空格/换行回车等
